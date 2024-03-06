@@ -1,4 +1,6 @@
-This is a test assignment.
+This is a test assignment, it is based on laravel framework, no additional libraries used. 
+PHP version: 8.3.3
+Docker: PHP-fpm, nginx, mysql 8
 
 Project contains 5 endpoints
 ``````
