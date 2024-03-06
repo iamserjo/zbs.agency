@@ -47,7 +47,7 @@ class UserRegistrationRequest extends FormRequest
     protected function failRegistrationToken(): void
     {
         throw new HttpResponseException(response()->json([
-            'message' => 'Registration token failure',
+            'message' => 'Unauthorized: The registration token is invalid or has expired. Please request a new token and try again.',
         ], Response::HTTP_UNAUTHORIZED));
     }
 

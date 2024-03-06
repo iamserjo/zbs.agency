@@ -29,9 +29,12 @@ class UserController extends Controller
 
         // Validation passed, proceed with registration logic
         try {
-            $this->userRegistrationService->register($validatedData);
+            $user = $this->userRegistrationService->register($validatedData);
             Cache::delete('registration_token_' . $token);
-            return response()->json(['message' => 'User registered successfully'], 201);
+            return response()->json([
+                'message' => 'User registered successfully',
+                'user' => $user,
+            ], 201);
         } catch (\Exception $e) {
             // Handle  unexpected exceptions
             return response()->json(['message' => 'Failed to register user', 'error' => $e->getMessage()], 500);

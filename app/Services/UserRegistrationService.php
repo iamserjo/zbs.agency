@@ -6,7 +6,7 @@ use App\Models\User;
 
 class UserRegistrationService
 {
-    public function register(array $data)
+    public function register(array $data): User
     {
         // Implement the logic for user registration, including photo upload
         // Example:
@@ -14,13 +14,13 @@ class UserRegistrationService
 
         // Save the user to the database
         // Example:
-        User::create([
+        return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
             'position_id' => $data['position_id'],
             'photo' => $photoPath,
-            'password' => rand(),
+            'password' => mt_rand(),
         ]);
     }
 }
