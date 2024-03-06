@@ -1,0 +1,11 @@
+# Use the official PHP 8 image
+FROM php:8-fpm
+
+# Install required PHP extensions
+RUN docker-php-ext-install pdo_mysql
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Expose port 9000 to communicate with Nginx
+EXPOSE 9000

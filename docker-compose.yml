@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+    php:
+        build:
+            context: .
+            dockerfile: DockerfilePhp
+        volumes:
+            - ./:/var/www
+        networks:
+            - laravel-network
+
+    nginx:
+        build:
+            context: .
+            dockerfile: DockerfileNginx
+        ports:
+            - "8000:80"
+        volumes:
+            - ./:/var/www
+            - ./nginx.conf:/etc/nginx/nginx.conf
+        networks:
+            - laravel-network
+        depends_on:
+            - php
+
+    mysql:
+        build:
+            context: .
+            dockerfile: DockerfileMysql
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: laravel
+            MYSQL_USER: laravel
+            MYSQL_PASSWORD: laravel
+            MYSQL_ROOT_PASSWORD: root
+        volumes:
+            - ./mysql:/var/lib/mysql
+        networks:
+            - laravel-network
+
+networks:
+    laravel-network:
+        driver: bridge
