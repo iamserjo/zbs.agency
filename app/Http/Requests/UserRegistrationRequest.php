@@ -6,8 +6,8 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserRegistrationRequest extends FormRequest
 {
@@ -36,19 +36,19 @@ class UserRegistrationRequest extends FormRequest
         ];
     }
 
-    protected function failedValidation(Validator $validator)
+    protected function failedValidation(Validator $validator): void
     {
         throw new HttpResponseException(response()->json([
             'message' => 'Validation error',
             'errors' => $validator->errors(),
-        ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY));
+        ], Response::HTTP_UNPROCESSABLE_ENTITY));
     }
 
     protected function failRegistrationToken(): void
     {
         throw new HttpResponseException(response()->json([
             'message' => 'Registration token failure',
-        ], JsonResponse::HTTP_UNAUTHORIZED));
+        ], Response::HTTP_UNAUTHORIZED));
     }
 
     protected function validateToken($token): bool

@@ -10,7 +10,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\URL;
 
 class UserController extends Controller
 {
@@ -34,7 +33,7 @@ class UserController extends Controller
             Cache::delete('registration_token_' . $token);
             return response()->json(['message' => 'User registered successfully'], 201);
         } catch (\Exception $e) {
-            // Handle any unexpected exceptions
+            // Handle  unexpected exceptions
             return response()->json(['message' => 'Failed to register user', 'error' => $e->getMessage()], 500);
         }
     }
@@ -48,7 +47,7 @@ class UserController extends Controller
         return Cache::has('registration_token_' . $token);
     }
 
-    public function generateToken()
+    public function generateToken(): JsonResponse
     {
         $token = Str::random(60);
         $expiresAt = now()->addMinutes(40);
@@ -61,12 +60,12 @@ class UserController extends Controller
         ]);
     }
 
-    public function getUserById(User $user)
+    public function getUserById(User $user): User
     {
         return $user;
     }
 
-    public function getUsers(Request $request)
+    public function getUsers(Request $request): JsonResponse
     {
 
         /** @var Builder $usersQuery */
@@ -80,8 +79,8 @@ class UserController extends Controller
             $usersQuery->forPage($request->input('page', 1));
         }
 
-        return $usersQuery
-            ->paginate($request->input('count', 10))
-            ->toJson();
+        return response()->json(
+            $usersQuery->paginate($request->input('count', 10))
+        );
     }
 }
