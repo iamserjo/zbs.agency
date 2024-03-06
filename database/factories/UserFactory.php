@@ -19,7 +19,7 @@ class UserFactory extends Factory
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
             'phone' => '+380' . $this->faker->randomNumber(9),
-            'position_id' =>1,
+            'position_id' => random_int(1, 10),
             'photo' => $this->faker->imageUrl(100, 100),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
