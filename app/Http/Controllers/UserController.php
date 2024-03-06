@@ -80,8 +80,8 @@ class UserController extends Controller
             $usersQuery->forPage($request->input('page', 1));
         }
 
-        $users = $usersQuery->paginate($request->input('count', 10));
-
-        return $users->toJson();
+        return $usersQuery
+            ->paginate($request->input('count', 10))
+            ->toJson();
     }
 }
