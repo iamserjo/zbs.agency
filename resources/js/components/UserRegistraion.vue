@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container mt-4">
         <div class="form-group">
             <label>Name:</label>
             <input type="text" class="form-control" v-model="name">
@@ -22,10 +22,12 @@
             <label>Photo:</label>
             <input type="file" class="form-control" @change="photo = $event.target.files[0]">
         </div>
-        <div class="form-group">
+        <div class="token-area">
             <label>Token:</label>
-            <input type="text" class="form-control" v-model="token">
-            <button class="btn btn-secondary mt-2" @click="getToken">Get Token</button>
+            <div>
+                <input type="text" class="form-control" id="token-field" v-model="token">
+                <button class="btn btn-secondary mt-2" id="get-token" @click="getToken">Get and apply TOKEN</button>
+            </div>
         </div>
         <button class="btn btn-primary" @click="handleSubmit">Submit</button>
     </div>
@@ -104,3 +106,21 @@ export default {
     }
 };
 </script>
+<style scoped>
+.token-area {
+    display: flex;
+    flex-direction: column;
+}
+
+.token-area div {
+    display: flex;
+}
+
+#token-field {
+    margin-right: 5px;
+}
+
+#get-token {
+    width: 300px;
+}
+</style>
