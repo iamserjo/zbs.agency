@@ -30,5 +30,8 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
-
+    'bytescale' => [
+        'api_key' => env('BYTESCALE_API_KEY'),
+        'account_id' => env('BYTESCALE_ACCOUNT_ID'),
+    ],
 ];

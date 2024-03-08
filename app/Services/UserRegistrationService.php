@@ -6,20 +6,21 @@ use App\Models\User;
 
 class UserRegistrationService
 {
+    public function __construct(private readonly ImageService $imageService)
+    {
+
+    }
+
     public function register(array $data): User
     {
-        // Implement the logic for user registration, including photo upload
-        // Example:
-        $photoPath = $data['photo']->store('photos');
+        $imageUrl = $this->imageService->saveImage($data['photo']);
 
-        // Save the user to the database
-        // Example:
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
             'position_id' => $data['position_id'],
-            'photo' => $photoPath,
+            'photo' => $imageUrl,
             'password' => mt_rand(),
         ]);
     }

@@ -1,1 +1,9 @@
-import './bootstrap';
+import { createApp} from 'vue'
+import UserList from './components/UserList.vue';
+import UserRegistration from './components/UserRegistraion.vue';
+import App from './components/App.vue';
+
+const app = createApp(App);
+app.component('user-list', UserList);
+app.component('user-registration', UserRegistration);
+app.mount('#app');

@@ -51,4 +51,12 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Position::class);
     }
+
+    public function getPhotoAttribute($value): string
+    {
+        return ($value ?
+                str_replace('/raw/', '/image/',$value) :
+                'https://upcdn.io/FW25bx1/image/default-avatar.png'
+            ).'?w=70&h=70&fit=crop&crop=center';
+    }
 }

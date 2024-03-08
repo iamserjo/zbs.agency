@@ -36,7 +36,6 @@ class UserController extends Controller
                 'user' => $user,
             ], 201);
         } catch (\Exception $e) {
-            // Handle  unexpected exceptions
             return response()->json(['message' => 'Failed to register user', 'error' => $e->getMessage()], 500);
         }
     }
@@ -70,7 +69,6 @@ class UserController extends Controller
 
     public function getUsers(Request $request): JsonResponse
     {
-
         /** @var Builder $usersQuery */
         $usersQuery = User::orderBy('created_at', 'desc');
 
@@ -78,6 +76,24 @@ class UserController extends Controller
 
         if ($offset) {
             $usersQuery->offset($offset);
+            $usersQuery->limit($request->input('count', 1000));
+
+            $data = $usersQuery->get()->toArray();
+
+            return response()->json([
+                'data' => $data,
+                'first_page_url' => null,
+                'from' => null,
+                'last_page' => null,
+                'last_page_url' => null,
+                'next_page_url' => [],
+                'links' => [],
+                'path' => url()->current(),
+                'per_page' => null,
+                'prev_page_url' => null,
+                'total' => count($data),
+            ]
+            );
         } else {
             $usersQuery->forPage($request->input('page', 1));
         }
