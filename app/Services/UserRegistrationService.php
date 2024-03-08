@@ -8,7 +8,6 @@ class UserRegistrationService
 {
     public function __construct(private readonly ImageService $imageService)
     {
-
     }
 
     public function register(array $data): User
@@ -21,7 +20,7 @@ class UserRegistrationService
             'phone' => $data['phone'],
             'position_id' => $data['position_id'],
             'photo' => $imageUrl,
-            'password' => mt_rand(),
+            'password' => mt_rand(), //since password is not a required field :)
         ]);
     }
 }

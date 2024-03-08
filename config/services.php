@@ -34,4 +34,8 @@ return [
         'api_key' => env('BYTESCALE_API_KEY'),
         'account_id' => env('BYTESCALE_ACCOUNT_ID'),
     ],
+    'token' => [
+        'registration_token_active_minutes' => 40,
+        'registration_token_length' => 32,
+    ],
 ];
